@@ -19,13 +19,9 @@ interface QuestionProps {
 export default function App() {
   const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const data: QuestionProps[] = QUESTIONDATA.results;
-
-  useEffect(() => {
-    setQuestions(data);
-  }, []);
 
   const getData = () => {
+    const data: QuestionProps[] = QUESTIONDATA.results;
     if (data.length > 0) {
       data.map((question) => {
         question.incorrect_answers.push(question.correct_answer);
