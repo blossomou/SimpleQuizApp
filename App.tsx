@@ -1,9 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import QUESTIONDATA from './data.json';
-import Questions from './src/components/Questions';
+import Quiz from './src/components/Quiz';
 
 const dbURL = "https://opentdb.com/api.php?amount=10&category=18&type=multiple";
 
@@ -17,33 +15,21 @@ interface QuestionProps {
 }
 
 export default function App() {
-  const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  // const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
+  // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  const getData = () => {
-    const data: QuestionProps[] = QUESTIONDATA.results;
-    if (data.length > 0) {
-      data.map((question) => {
-        question.incorrect_answers.push(question.correct_answer);
-      });
+  // const getData = () => {
+  //   const data: QuestionProps[] = QUESTIONDATA.results;
+  //   if (data.length > 0) {
+  //     data.map((question) => {
+  //       question.incorrect_answers.push(question.correct_answer);
+  //     });
 
-      setQuestions(data);
-    }
-  };
+  //     setQuestions(data);
+  //   }
+  // };
 
-  return (
-    <View>
-      <Pressable style={styles.button} onPress={getData}>
-        <Text style={styles.text}>Click Me</Text>
-      </Pressable>
-
-      {questions?.map((question, index) => {
-        return <Questions data={question} key={index} />;
-      })}
-
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <Quiz />;
 }
 
 const styles = StyleSheet.create({
