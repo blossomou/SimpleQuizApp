@@ -16,15 +16,26 @@ interface QuestionProps {
 let randAnswers: string[] = [];
 
 const Quiz = () => {
-  let [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
+  const [score, setScore] = useState(0);
+  const [feedback, setFeedback] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   console.log("currentQuestionIndex", currentQuestionIndex);
+  //   return () => {
+  //     console.log("cleanup");
+  //   };
+  // }, [currentQuestionIndex]);
 
   useEffect(() => {
-    console.log("currentQuestionIndex change");
-    return () => {
-      console.log("return currentQuestionIndex change");
-    };
-  }, [currentQuestionIndex]);
+    if (feedback != null) {
+      setTimeout(() => {
+        setFeedback(null);
+        setCurrentQuestionIndex((index) => index + 1);
+      }, 3000);
+    }
+  }, [feedback]);
 
   const getData = () => {
     const data: QuestionProps[] = QUESTIONDATA.results;
@@ -41,15 +52,27 @@ const Quiz = () => {
   }
 
   const clickAnswer = (selectedAnswer: string, correctAnswer: string) => {
-    window.alert(selectedAnswer === correctAnswer ? "correct" : "wrong");
-    setCurrentQuestionIndex(currentQuestionIndex++);
-    // console.log("currentindex", currentQuestionIndex);
+    if (selectedAnswer === correctAnswer) {
+      setScore((score) => score + 10);
+
+      setFeedback("Correct");
+    } else {
+      setFeedback("Wrong");
+    }
   };
+
+  // const feedbackResult = (result: string) => {
+  //   window.setInterval(() => {
+  //     setFeedback(result);
+  //   }, 30);
+  // };
 
   return (
     <View style={styles.container}>
       {questions != null ? (
         <View>
+          <Text></Text>
+          <Text style={styles.textTitle}>Score: {score}</Text>
           <Text style={styles.textTitle}>
             {questions[currentQuestionIndex].question}
           </Text>
@@ -70,6 +93,8 @@ const Quiz = () => {
               </Pressable>
             );
           })}
+
+          <Text style={styles.textTitle}>{feedback}</Text>
         </View>
       ) : (
         <Pressable style={styles.button} onPress={getData}>
