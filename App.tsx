@@ -2,8 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import Questions from './components/Questions';
 import QUESTIONDATA from './data.json';
+import Questions from './src/components/Questions';
 
 const dbURL = "https://opentdb.com/api.php?amount=10&category=18&type=multiple";
 
