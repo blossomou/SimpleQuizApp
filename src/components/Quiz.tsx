@@ -20,20 +20,15 @@ const Quiz = () => {
   const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   console.log("currentQuestionIndex", currentQuestionIndex);
-  //   return () => {
-  //     console.log("cleanup");
-  //   };
-  // }, [currentQuestionIndex]);
+  const [allowRandom, setAllowRandom] = useState(true);
 
   useEffect(() => {
     if (feedback != null) {
       setTimeout(() => {
         setFeedback(null);
         setCurrentQuestionIndex((index) => index + 1);
-      }, 3000);
+        setAllowRandom(true);
+      }, 2000);
     }
   }, [feedback]);
 
@@ -45,7 +40,7 @@ const Quiz = () => {
     }
   };
 
-  if (questions != null) {
+  if (questions != null && allowRandom) {
     let answers = questions[currentQuestionIndex].incorrect_answers;
     answers.push(questions[currentQuestionIndex].correct_answer);
     randAnswers = shuffle(answers);
@@ -59,21 +54,16 @@ const Quiz = () => {
     } else {
       setFeedback("Wrong");
     }
+    setAllowRandom(false);
   };
-
-  // const feedbackResult = (result: string) => {
-  //   window.setInterval(() => {
-  //     setFeedback(result);
-  //   }, 30);
-  // };
 
   return (
     <View style={styles.container}>
       {questions != null ? (
         <View>
-          <Text></Text>
           <Text style={styles.textTitle}>Score: {score}</Text>
           <Text style={styles.textTitle}>
+            {currentQuestionIndex + 1}.{" "}
             {questions[currentQuestionIndex].question}
           </Text>
 
@@ -94,7 +84,7 @@ const Quiz = () => {
             );
           })}
 
-          <Text style={styles.textTitle}>{feedback}</Text>
+          <Text style={styles.feedback}>{feedback}</Text>
         </View>
       ) : (
         <Pressable style={styles.button} onPress={getData}>
@@ -121,6 +111,8 @@ const styles = StyleSheet.create({
   textTitle: {
     color: "black",
     fontSize: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 
   text: {
@@ -139,5 +131,10 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "black",
     marginTop: 10,
+  },
+  feedback: {
+    padding: 10,
+    fontSize: 16,
+    height: 20,
   },
 });
