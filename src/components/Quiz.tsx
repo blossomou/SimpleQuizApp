@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -16,6 +17,8 @@ interface QuestionProps {
 let randAnswers: string[] = [];
 
 const Quiz = () => {
+  const navigation = useNavigation();
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
   const [score, setScore] = useState(0);
@@ -26,9 +29,19 @@ const Quiz = () => {
     if (feedback != null) {
       setTimeout(() => {
         setFeedback(null);
-        setCurrentQuestionIndex((index) => index + 1);
-        setAllowRandom(true);
-      }, 2000);
+        if (currentQuestionIndex + 1 == questions?.length) {
+          console.log("done");
+          navigation.navigate("Score", {
+            score,
+          });
+        } else {
+          setCurrentQuestionIndex((index) => index + 1);
+
+          setAllowRandom(true);
+
+          console.log(currentQuestionIndex);
+        }
+      }, 1000);
     }
   }, [feedback]);
 

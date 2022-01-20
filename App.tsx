@@ -1,35 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import Quiz from './src/components/Quiz';
+import StackNavigator from './StackNavigator';
+import { RootStackParamList } from './type';
 
 const dbURL = "https://opentdb.com/api.php?amount=10&category=18&type=multiple";
 
-interface QuestionProps {
-  category: string;
-  type: string;
-  difficulty: string;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-}
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-  // const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
-  // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-
-  // const getData = () => {
-  //   const data: QuestionProps[] = QUESTIONDATA.results;
-  //   if (data.length > 0) {
-  //     data.map((question) => {
-  //       question.incorrect_answers.push(question.correct_answer);
-  //     });
-
-  //     setQuestions(data);
-  //   }
-  // };
-
-  return <Quiz />;
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
