@@ -1,54 +1,54 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRoute } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { getDataFromStorage } from '../utils/random';
+
+type ScoreProps = {
+  name: string;
+  score: number;
+  createdDate: Date;
+};
 const ScoreScreen = () => {
-  const route = useRoute();
-  const [text, setText] = useState<string>("");
-  const score = (route.params as { score: number }).score;
-  // console.log("score: ", score);
+  const navigation = useNavigation();
+  const [scores, setScores] = useState<ScoreProps[] | null>(null);
 
-  const saveDate = async () => {
-    let newScore = {
-      name: text,
-      score: score,
-      createdDate: new Date(),
-    };
+  useEffect(() => {
+    getData();
+  }, []);
 
-    try {
-      const scores = await getData();
-      console.log(scores);
-
-      scores.push(newScore);
-
-      await AsyncStorage.setItem("Scores", JSON.stringify(scores));
-    } catch (e) {}
-  };
+  useEffect(() => {}, [scores]);
 
   const getData = async () => {
-    try {
-      const result = await AsyncStorage.getItem("Scores");
+    const highscores = await getDataFromStorage();
 
-      return result ? JSON.parse(result) : [];
-    } catch (e) {}
+    if (highscores.length > 0) {
+      highscores.sort(function (a: { score: number }, b: { score: number }) {
+        b.score - a.score;
+      });
+
+      setScores(highscores);
+    }
+  };
+
+  const restart = () => {
+    navigation.navigate("Home");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>Your Score: </Text>
-
-      <Text style={styles.textTitle}>{score}</Text>
-
-      <TextInput
-        style={styles.input}
-        onChangeText={setText}
-        placeholder="Please enter your name"
-        value={text}
-      />
-
-      <Pressable style={styles.button} onPress={saveDate}>
-        <Text style={styles.text}>Save</Text>
+      <Text style={styles.textTitle}>List of Scores</Text>
+      {scores?.map((s, index) => {
+        return (
+          <View style={{ flexDirection: "row" }} key={index}>
+            <Text style={styles.textTitle}>{s.name}</Text>
+            <Text style={styles.textTitle}>{s.score}</Text>
+            <Text style={styles.textTitle}>{s.createdDate}</Text>
+          </View>
+        );
+      })}
+      <Pressable style={styles.button} onPress={restart}>
+        <Text style={styles.text}>Retry</Text>
       </Pressable>
     </View>
   );
@@ -67,18 +67,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
   },
-  textTitle: {
-    color: "black",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
   button: {
     alignItems: "center",
     justifyContent: "center",
@@ -95,5 +83,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
+  },
+  textTitle: {
+    color: "black",
+    fontSize: 16,
+    padding: 10,
+    flexDirection: "row",
+    // marginRight: 10,
+    // borderRightColor: "black",
+    // borderRightWidth: 1,
   },
 });

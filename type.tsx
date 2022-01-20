@@ -1,9 +1,9 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
  */
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
@@ -12,7 +12,8 @@ declare global {
 
 export type RootStackParamList = {
   Home: undefined;
-  Score: { score: number };
+  Result: { score: number };
+  Score: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

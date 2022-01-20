@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
 import HomeScreen from './screens/HomeScreen';
+import ResultScreen from './screens/ResultScreen';
 import ScoreScreen from './screens/ScoreScreen';
 import { RootStackParamList } from './type';
 
@@ -19,6 +20,11 @@ const StackNavigator = () => {
           name="Home"
           component={HomeScreen}
           options={{ title: "Welcome" }}
+        />
+        <Stack.Screen
+          name="Result"
+          component={ResultScreen}
+          options={{ title: "Result" }}
         />
         <Stack.Screen
           name="Score"

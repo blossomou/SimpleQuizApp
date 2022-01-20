@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -14,36 +13,40 @@ interface QuestionProps {
   incorrect_answers: string[];
 }
 
-let randAnswers: string[] = [];
-
-const Quiz = () => {
-  const navigation = useNavigation();
-
+const Quiz = (props: { onQuizComplete: (score: number) => void }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
-  const [allowRandom, setAllowRandom] = useState(true);
+  const [randAnswers, setRandAnswers] = useState<string[]>([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   useEffect(() => {
     if (feedback != null) {
       setTimeout(() => {
         setFeedback(null);
+
         if (currentQuestionIndex + 1 == questions?.length) {
-          console.log("done");
-          navigation.navigate("Score", {
-            score,
-          });
+          props.onQuizComplete(score);
         } else {
           setCurrentQuestionIndex((index) => index + 1);
-
-          setAllowRandom(true);
-
-          console.log(currentQuestionIndex);
         }
       }, 1000);
     }
   }, [feedback]);
+
+  useEffect(() => {
+    if (questions != null) {
+      let answers = [
+        ...questions[currentQuestionIndex].incorrect_answers,
+        questions[currentQuestionIndex].correct_answer,
+      ];
+      setRandAnswers(shuffle(answers));
+    }
+  }, [currentQuestionIndex, questions]);
 
   const getData = () => {
     const data: QuestionProps[] = QUESTIONDATA.results;
@@ -53,12 +56,6 @@ const Quiz = () => {
     }
   };
 
-  if (questions != null && allowRandom) {
-    let answers = questions[currentQuestionIndex].incorrect_answers;
-    answers.push(questions[currentQuestionIndex].correct_answer);
-    randAnswers = shuffle(answers);
-  }
-
   const clickAnswer = (selectedAnswer: string, correctAnswer: string) => {
     if (selectedAnswer === correctAnswer) {
       setScore((score) => score + 10);
@@ -67,7 +64,6 @@ const Quiz = () => {
     } else {
       setFeedback("Wrong");
     }
-    setAllowRandom(false);
   };
 
   return (
@@ -99,11 +95,7 @@ const Quiz = () => {
 
           <Text style={styles.feedback}>{feedback}</Text>
         </View>
-      ) : (
-        <Pressable style={styles.button} onPress={getData}>
-          <Text style={styles.text}>Click Me</Text>
-        </Pressable>
-      )}
+      ) : null}
     </View>
   );
 };
