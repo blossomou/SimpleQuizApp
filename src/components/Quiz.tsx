@@ -13,10 +13,13 @@ interface QuestionProps {
   incorrect_answers: string[];
 }
 
-const Quiz = (props: { onQuizComplete: (score: number) => void }) => {
+const Quiz = (props: {
+  onQuizComplete: () => void;
+  onFeedback: (isCorrect: boolean) => void;
+}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
-  const [score, setScore] = useState(0);
+  // const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [randAnswers, setRandAnswers] = useState<string[]>([]);
 
@@ -30,7 +33,7 @@ const Quiz = (props: { onQuizComplete: (score: number) => void }) => {
         setFeedback(null);
 
         if (currentQuestionIndex + 1 == questions?.length) {
-          props.onQuizComplete(score);
+          props.onQuizComplete();
         } else {
           setCurrentQuestionIndex((index) => index + 1);
         }
@@ -58,10 +61,11 @@ const Quiz = (props: { onQuizComplete: (score: number) => void }) => {
 
   const clickAnswer = (selectedAnswer: string, correctAnswer: string) => {
     if (selectedAnswer === correctAnswer) {
-      setScore((score) => score + 10);
-
+      //setScore((score) => score + 10);
+      props.onFeedback(true);
       setFeedback("Correct");
     } else {
+      props.onFeedback(false);
       setFeedback("Wrong");
     }
   };
@@ -70,7 +74,7 @@ const Quiz = (props: { onQuizComplete: (score: number) => void }) => {
     <View style={styles.container}>
       {questions != null ? (
         <View>
-          <Text style={styles.textTitle}>Score: {score}</Text>
+          {/* <Text style={styles.textTitle}>Score: {score}</Text> */}
           <Text style={styles.textTitle}>
             {currentQuestionIndex + 1}.{" "}
             {questions[currentQuestionIndex].question}
@@ -110,8 +114,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
   },
   textTitle: {
     color: "black",
@@ -140,6 +142,6 @@ const styles = StyleSheet.create({
   feedback: {
     padding: 10,
     fontSize: 16,
-    height: 20,
+    height: 40,
   },
 });

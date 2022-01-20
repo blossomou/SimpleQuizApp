@@ -8,6 +8,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const [isShowQuiz, setIsShowQuiz] = useState(false);
+  const [score, setScore] = useState(0);
 
   const startQuiz = () => {
     setIsShowQuiz(true);
@@ -16,14 +17,23 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       {isShowQuiz ? (
-        <Quiz
-          onQuizComplete={(score) => {
-            setIsShowQuiz(false);
-            navigation.navigate("Result", {
-              score,
-            });
-          }}
-        />
+        <View>
+          <Text style={styles.textTitle}>Score: {score}</Text>
+          <Quiz
+            onFeedback={(isCorrect: boolean) => {
+              if (isCorrect) {
+                setScore(score + 10);
+              }
+            }}
+            onQuizComplete={() => {
+              setIsShowQuiz(false);
+              setScore(0);
+              navigation.navigate("Result", {
+                score,
+              });
+            }}
+          />
+        </View>
       ) : (
         <Pressable style={styles.button} onPress={startQuiz}>
           <Text style={styles.text}>Click Me</Text>
@@ -62,5 +72,11 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "black",
     marginTop: 10,
+  },
+  textTitle: {
+    color: "black",
+    fontSize: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 });
