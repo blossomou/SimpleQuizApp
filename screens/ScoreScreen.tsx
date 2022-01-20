@@ -1,22 +1,77 @@
-import { useRoute } from '@react-navigation/core';
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const ScoreScreen = () => {
   const route = useRoute();
-
+  const [text, setText] = useState<string>("");
   const score = (route.params as { score: number }).score;
-  console.log("score: ", score);
-  return <Text style={styles.textTitle}>{score}</Text>;
+  // console.log("score: ", score);
+
+  const saveDate = () => {
+    console.log(text);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.textTitle}>Your Score: </Text>
+
+      <Text style={styles.textTitle}>{score}</Text>
+
+      <TextInput
+        style={styles.input}
+        onChangeText={setText}
+        placeholder="Please enter your name"
+        value={text}
+      />
+
+      <Pressable style={styles.button} onPress={saveDate}>
+        <Text style={styles.text}>Save</Text>
+      </Pressable>
+    </View>
+  );
 };
 
 export default ScoreScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    // height: "50%",
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+  },
   textTitle: {
     color: "black",
     fontSize: 16,
     paddingTop: 10,
     paddingBottom: 10,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "black",
+    marginTop: 10,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
   },
 });
