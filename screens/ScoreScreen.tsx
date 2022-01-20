@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -8,8 +9,29 @@ const ScoreScreen = () => {
   const score = (route.params as { score: number }).score;
   // console.log("score: ", score);
 
-  const saveDate = () => {
-    console.log(text);
+  const saveDate = async () => {
+    let newScore = {
+      name: text,
+      score: score,
+      createdDate: new Date(),
+    };
+
+    try {
+      const scores = await getData();
+      console.log(scores);
+
+      scores.push(newScore);
+
+      await AsyncStorage.setItem("Scores", JSON.stringify(scores));
+    } catch (e) {}
+  };
+
+  const getData = async () => {
+    try {
+      const result = await AsyncStorage.getItem("Scores");
+
+      return result ? JSON.parse(result) : [];
+    } catch (e) {}
   };
 
   return (
