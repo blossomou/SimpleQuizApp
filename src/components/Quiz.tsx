@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import RenderHtml from 'react-native-render-html';
 
 import { shuffle } from '../../utils/random';
 
@@ -23,6 +24,8 @@ const Quiz = (props: {
   // const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [randAnswers, setRandAnswers] = useState<string[]>([]);
+
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     getDataAsync();
@@ -74,7 +77,6 @@ const Quiz = (props: {
 
   const clickAnswer = (selectedAnswer: string, correctAnswer: string) => {
     if (selectedAnswer === correctAnswer) {
-      //setScore((score) => score + 10);
       props.onFeedback(true);
       setFeedback("Correct");
     } else {
@@ -83,14 +85,28 @@ const Quiz = (props: {
     }
   };
 
+  const createMarkup = (question: string, style: string) => {
+    return {
+      html: `<p style='${style}'>
+     ${question}</p>
+    `,
+    };
+  };
+
   return (
     <View>
       {questions != null ? (
         <View>
-          {/* <Text style={styles.textTitle}>Score: {score}</Text> */}
           <Text style={styles.textTitle}>
-            {currentQuestionIndex + 1}.{" "}
-            {questions[currentQuestionIndex].question}
+            <RenderHtml
+              contentWidth={width}
+              source={createMarkup(
+                `${currentQuestionIndex + 1}. ${
+                  questions[currentQuestionIndex].question
+                }`,
+                ""
+              )}
+            />
           </Text>
 
           {randAnswers.map((answer, index) => {
@@ -105,7 +121,16 @@ const Quiz = (props: {
                   );
                 }}
               >
-                <Text style={styles.text}> {answer}</Text>
+                {/* <Text style={styles.text}> {answer}</Text> */}
+                {/* <Text style={styles.text}> */}
+                <RenderHtml
+                  contentWidth={width}
+                  source={createMarkup(
+                    answer,
+                    "font-size: 16; font-weight: bold; color: white"
+                  )}
+                />
+                {/* </Text> */}
               </Pressable>
             );
           })}
