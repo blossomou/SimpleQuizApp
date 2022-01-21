@@ -13,7 +13,7 @@ declare global {
 export type RootStackParamList = {
   Home: undefined;
   Result: { score: number };
-  Score: undefined;
+  Scoreboard: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

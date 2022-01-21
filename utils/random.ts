@@ -27,3 +27,7 @@ export const getDataFromStorage = async () => {
     return result ? JSON.parse(result) : [];
   } catch (e) {}
 };
+
+export const removeData = async () => {
+  await AsyncStorage.removeItem("Scores");
+};

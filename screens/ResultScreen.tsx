@@ -32,7 +32,7 @@ const ResultScreen = () => {
 
       await AsyncStorage.setItem("Scores", JSON.stringify(scores));
 
-      navigation.navigate("Score");
+      navigation.navigate("Scoreboard");
     } catch (e) {}
   };
 
