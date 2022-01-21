@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { shuffle } from '../../utils/random';
 
+// const dbURL = `"https://opentdb.com/api.php?amount=10&category=18&type=multiple&difficulty=${props.difficulty}"`;
 interface QuestionProps {
   category: string;
   type: string;
@@ -22,7 +23,6 @@ const Quiz = (props: {
   // const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [randAnswers, setRandAnswers] = useState<string[]>([]);
-  // const dbURL = `"https://opentdb.com/api.php?amount=10&category=18&type=multiple&difficulty=${props.difficulty}"`;
 
   useEffect(() => {
     getDataAsync();
@@ -55,7 +55,9 @@ const Quiz = (props: {
   const getDataAsync = async () => {
     try {
       const response = await fetch(
-        "https://opentdb.com/api.php?amount=10&category=18&type=multiple"
+        // "https://opentdb.com/api.php?amount=5&category=18&type=multiple&difficulty=" +
+        //   props.difficulty
+        "https://opentdb.com/api.php?amount=5&category=18&type=multiple"
       );
 
       if (response.ok) {

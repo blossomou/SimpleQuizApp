@@ -45,33 +45,3 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-
-// const onPressHandler = () => {
-//   fetch(dbURL)
-//     .then((response) => {
-//       if (response.ok) {
-//         response.json().then((data) => {
-//           if (data.results.length > 0) {
-//             console.log(data.results);
-//           }
-//         });
-//       }
-//     })
-//     .catch((err) => console.log(err));
-// };
-
-// const onPressHandlerAsync = async () => {
-//   try {
-//     const response = await fetch(dbURL);
-
-//     if (response.ok) {
-//       const data = await response.json();
-
-//       if (data.results.length > 0) {
-//         console.log(data.results);
-//       }
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
