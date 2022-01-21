@@ -84,7 +84,7 @@ const Quiz = (props: {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       {questions != null ? (
         <View>
           {/* <Text style={styles.textTitle}>Score: {score}</Text> */}

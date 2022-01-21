@@ -38,17 +38,6 @@ const HomeScreen = () => {
         </View>
       ) : (
         <View>
-          {/* <Picker
-            selectedValue={selectedValue}
-            style={{ height: 50, width: 150 }}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedValue(itemValue)
-            }
-          >
-            <Picker.Item label="Easy" value="easy" />
-            <Picker.Item label="Medium" value="medium" />
-            <Picker.Item label="Hard" value="hard" />
-          </Picker> */}
           <Pressable style={styles.button} onPress={startQuiz}>
             <Text style={styles.text}>Start Quiz</Text>
           </Pressable>
@@ -62,14 +51,11 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    // height: "50%",
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
   },
   text: {
     fontSize: 16,

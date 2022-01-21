@@ -110,6 +110,6 @@ const styles = StyleSheet.create({
   feedback: {
     padding: 10,
     fontSize: 16,
-    height: 20,
+    height: 40,
   },
 });
