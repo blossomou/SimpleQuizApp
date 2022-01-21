@@ -7,8 +7,6 @@ import { StyleSheet } from 'react-native';
 import StackNavigator from './StackNavigator';
 import { RootStackParamList } from './type';
 
-const dbURL = "https://opentdb.com/api.php?amount=10&category=18&type=multiple";
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {

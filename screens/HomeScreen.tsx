@@ -9,6 +9,7 @@ const HomeScreen = () => {
 
   const [isShowQuiz, setIsShowQuiz] = useState(false);
   const [score, setScore] = useState(0);
+  const [selectedValue, setSelectedValue] = useState("easy");
 
   const startQuiz = () => {
     setIsShowQuiz(true);
@@ -20,6 +21,7 @@ const HomeScreen = () => {
         <View>
           <Text style={styles.textTitle}>Score: {score}</Text>
           <Quiz
+            difficulty={selectedValue}
             onFeedback={(isCorrect: boolean) => {
               if (isCorrect) {
                 setScore(score + 10);
@@ -35,9 +37,22 @@ const HomeScreen = () => {
           />
         </View>
       ) : (
-        <Pressable style={styles.button} onPress={startQuiz}>
-          <Text style={styles.text}>Click Me</Text>
-        </Pressable>
+        <View>
+          {/* <Picker
+            selectedValue={selectedValue}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }
+          >
+            <Picker.Item label="Easy" value="easy" />
+            <Picker.Item label="Medium" value="medium" />
+            <Picker.Item label="Hard" value="hard" />
+          </Picker> */}
+          <Pressable style={styles.button} onPress={startQuiz}>
+            <Text style={styles.text}>Start Quiz</Text>
+          </Pressable>
+        </View>
       )}
     </View>
   );

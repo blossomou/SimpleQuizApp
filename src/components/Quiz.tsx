@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import QUESTIONDATA from '../../data.json';
 import { shuffle } from '../../utils/random';
 
 interface QuestionProps {
@@ -14,6 +13,7 @@ interface QuestionProps {
 }
 
 const Quiz = (props: {
+  difficulty: string;
   onQuizComplete: () => void;
   onFeedback: (isCorrect: boolean) => void;
 }) => {
@@ -22,9 +22,10 @@ const Quiz = (props: {
   // const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [randAnswers, setRandAnswers] = useState<string[]>([]);
+  // const dbURL = `"https://opentdb.com/api.php?amount=10&category=18&type=multiple&difficulty=${props.difficulty}"`;
 
   useEffect(() => {
-    getData();
+    getDataAsync();
   }, []);
 
   useEffect(() => {
@@ -51,11 +52,21 @@ const Quiz = (props: {
     }
   }, [currentQuestionIndex, questions]);
 
-  const getData = () => {
-    const data: QuestionProps[] = QUESTIONDATA.results;
+  const getDataAsync = async () => {
+    try {
+      const response = await fetch(
+        "https://opentdb.com/api.php?amount=10&category=18&type=multiple"
+      );
 
-    if (data.length > 0) {
-      setQuestions(data);
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.results.length > 0) {
+          setQuestions(data.results);
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
