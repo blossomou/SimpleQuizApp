@@ -17,11 +17,6 @@ const StackNavigator = () => {
     >
       <Stack.Group>
         <Stack.Screen
-          name="Scoreboard"
-          component={ScoreboardScreen}
-          options={{ title: "Scoreboard" }}
-        />
-        <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{ title: "Welcome" }}
@@ -30,6 +25,11 @@ const StackNavigator = () => {
           name="Result"
           component={ResultScreen}
           options={{ title: "Result" }}
+        />
+        <Stack.Screen
+          name="Scoreboard"
+          component={ScoreboardScreen}
+          options={{ title: "Scoreboard" }}
         />
       </Stack.Group>
     </Stack.Navigator>

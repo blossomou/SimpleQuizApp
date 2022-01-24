@@ -3,6 +3,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import AppStyles from '../AppStyles';
 import { getDataFromStorage } from '../utils/random';
 
 const ResultScreen = () => {
@@ -53,8 +54,8 @@ const ResultScreen = () => {
         value={name}
       />
 
-      <Pressable style={styles.button} onPress={saveDate}>
-        <Text style={styles.text}>Save</Text>
+      <Pressable style={AppStyles.button} onPress={saveDate}>
+        <Text style={AppStyles.text}>Save</Text>
       </Pressable>
 
       {displayError != null ? (
@@ -88,23 +89,6 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-    marginTop: 10,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
   },
 
   feedback: {

@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import AppStyles from '../AppStyles';
 import Quiz from '../src/components/Quiz';
 
 const HomeScreen = () => {
@@ -38,8 +39,8 @@ const HomeScreen = () => {
         </View>
       ) : (
         <View>
-          <Pressable style={styles.button} onPress={startQuiz}>
-            <Text style={styles.text}>Start Quiz</Text>
+          <Pressable style={AppStyles.button} onPress={startQuiz}>
+            <Text style={AppStyles.text}>Start Quiz</Text>
           </Pressable>
         </View>
       )}
@@ -57,23 +58,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
   },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-    marginTop: 10,
-  },
+  // text: {
+  //   fontSize: 16,
+  //   lineHeight: 21,
+  //   fontWeight: "bold",
+  //   letterSpacing: 0.25,
+  //   color: "white",
+  // },
+  // button: {
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   paddingVertical: 12,
+  //   paddingHorizontal: 32,
+  //   borderRadius: 4,
+  //   elevation: 3,
+  //   backgroundColor: "black",
+  //   marginTop: 10,
+  // },
   textTitle: {
     color: "black",
     fontSize: 16,

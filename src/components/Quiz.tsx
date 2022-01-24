@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 
+import AppStyles from '../../AppStyles';
 import { shuffle } from '../../utils/random';
 
 // const dbURL = `"https://opentdb.com/api.php?amount=10&category=18&type=multiple&difficulty=${props.difficulty}"`;
@@ -112,7 +113,7 @@ const Quiz = (props: {
           {randAnswers.map((answer, index) => {
             return (
               <Pressable
-                style={styles.button}
+                style={AppStyles.button}
                 key={index}
                 onPress={() => {
                   clickAnswer(
@@ -121,8 +122,6 @@ const Quiz = (props: {
                   );
                 }}
               >
-                {/* <Text style={styles.text}> {answer}</Text> */}
-                {/* <Text style={styles.text}> */}
                 <RenderHtml
                   contentWidth={width}
                   source={createMarkup(
@@ -130,7 +129,6 @@ const Quiz = (props: {
                     "font-size: 16; font-weight: bold; color: white"
                   )}
                 />
-                {/* </Text> */}
               </Pressable>
             );
           })}
@@ -160,23 +158,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
 
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-    marginTop: 10,
-  },
   feedback: {
     padding: 10,
     fontSize: 16,

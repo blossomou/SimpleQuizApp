@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 
+import AppStyles from '../AppStyles';
 import { getDataFromStorage, removeData } from '../utils/random';
 
 type ScoreProps = {
@@ -10,7 +11,7 @@ type ScoreProps = {
   createdDate: Date;
 };
 const ScoreboardScreen = () => {
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
 
   const navigation = useNavigation();
   const [scores, setScores] = useState<ScoreProps[] | null>(null);
@@ -42,8 +43,20 @@ const ScoreboardScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>List of Scores</Text>
-      <View style={{ height: height / 2 }}>
+      <Text style={[styles.textTitle, { fontWeight: "800", fontSize: 25 }]}>
+        List of Scores
+      </Text>
+      <View
+        style={{
+          height: height / 2,
+          width: width / 2,
+          borderColor: "pink",
+          borderLeftWidth: 2,
+          borderRightWidth: 2,
+          borderStyle: "solid",
+          alignItems: "center",
+        }}
+      >
         <ScrollView>
           {scores?.map((s, index) => {
             return (
@@ -58,11 +71,14 @@ const ScoreboardScreen = () => {
       </View>
 
       <View style={{ flexDirection: "row" }}>
-        <Pressable style={styles.button} onPress={restart}>
-          <Text style={styles.text}>Retry</Text>
+        <Pressable
+          style={[AppStyles.button, { marginRight: 10, marginTop: 10 }]}
+          onPress={restart}
+        >
+          <Text style={AppStyles.text}>Retry</Text>
         </Pressable>
-        <Pressable style={styles.button} onPress={clearData}>
-          <Text style={styles.text}>Clear</Text>
+        <Pressable style={AppStyles.button} onPress={clearData}>
+          <Text style={AppStyles.text}>Clear</Text>
         </Pressable>
       </View>
     </View>
@@ -73,33 +89,29 @@ export default ScoreboardScreen;
 
 const styles = StyleSheet.create({
   container: {
-    // height: "50%",
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    padding: 10,
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
   },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-    marginTop: 10,
-    marginRight: 10,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
+  // button: {
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   paddingVertical: 12,
+  //   paddingHorizontal: 32,
+  //   borderRadius: 4,
+  //   elevation: 3,
+  //   backgroundColor: "black",
+  //   marginTop: 10,
+  //   marginRight: 10,
+  // },
+  // text: {
+  //   fontSize: 16,
+  //   lineHeight: 21,
+  //   fontWeight: "bold",
+  //   letterSpacing: 0.25,
+  //   color: "white",
+  // },
   textTitle: {
     color: "black",
     fontSize: 16,
