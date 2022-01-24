@@ -15,7 +15,7 @@ interface QuestionProps {
 }
 
 const Quiz = (props: {
-  difficulty: string;
+  onLoaded: () => void;
   onQuizComplete: () => void;
   onFeedback: (isCorrect: boolean) => void;
 }) => {
@@ -57,8 +57,6 @@ const Quiz = (props: {
   const getDataAsync = async () => {
     try {
       const response = await fetch(
-        // "https://opentdb.com/api.php?amount=5&category=18&type=multiple&difficulty=" +
-        //   props.difficulty
         "https://opentdb.com/api.php?amount=5&category=18&type=multiple"
       );
 
@@ -67,6 +65,7 @@ const Quiz = (props: {
 
         if (data.results.length > 0) {
           setQuestions(data.results);
+          props.onLoaded();
         }
       }
     } catch (error) {
