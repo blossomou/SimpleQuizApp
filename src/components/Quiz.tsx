@@ -88,8 +88,8 @@ const Quiz = (props: {
 
   const createMarkup = (question: string, style: string) => {
     return {
-      html: `<p style='${style}'>
-     ${question}</p>
+      html: `<span style='${style}'>
+     ${question}</span>
     `,
     };
   };
@@ -98,17 +98,15 @@ const Quiz = (props: {
     <View>
       {questions != null ? (
         <View>
-          <Text style={styles.textTitle}>
-            <RenderHtml
-              contentWidth={width}
-              source={createMarkup(
-                `${currentQuestionIndex + 1}. ${
-                  questions[currentQuestionIndex].question
-                }`,
-                ""
-              )}
-            />
-          </Text>
+          <RenderHtml
+            contentWidth={width}
+            source={createMarkup(
+              `${currentQuestionIndex + 1}. ${
+                questions[currentQuestionIndex].question
+              }`,
+              "font-size: 16px; font-weight: bold; color: black"
+            )}
+          />
 
           {randAnswers.map((answer, index) => {
             return (
@@ -126,7 +124,7 @@ const Quiz = (props: {
                   contentWidth={width}
                   source={createMarkup(
                     answer,
-                    "font-size: 16; font-weight: bold; color: white"
+                    "font-size: 16px; font-weight: bold; color: white"
                   )}
                 />
               </Pressable>
