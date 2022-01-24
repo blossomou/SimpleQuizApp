@@ -42,7 +42,7 @@ const ResultScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={AppStyles.container}>
       <Text style={AppStyles.textTitle}>Your Score: {score}</Text>
 
       <TextInput
@@ -66,17 +66,6 @@ const ResultScreen = () => {
 export default ResultScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    // height: "50%",
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-  },
-
   input: {
     height: 40,
     margin: 12,

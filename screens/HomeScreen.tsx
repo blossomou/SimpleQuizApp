@@ -18,7 +18,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={AppStyles.container}>
       {isShowQuiz ? (
         <View>
           <View style={{ flexDirection: "row" }}>
@@ -61,12 +61,4 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
-  },
-});
+const styles = StyleSheet.create({});

@@ -141,14 +141,12 @@ const Quiz = (props: {
 export default Quiz;
 
 const styles = StyleSheet.create({
-  container: {
-    // height: "50%",
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
-  },
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: "#fff",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // },
   textTitle: {
     color: "black",
     fontSize: 16,

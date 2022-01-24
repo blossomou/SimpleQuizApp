@@ -1,7 +1,13 @@
 import { StyleSheet } from 'react-native';
 
-"use strict";
+("use strict");
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   text: {
     fontSize: 16,
     lineHeight: 21,

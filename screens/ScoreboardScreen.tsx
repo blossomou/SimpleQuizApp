@@ -42,7 +42,7 @@ const ScoreboardScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={AppStyles.container}>
       <Text style={[styles.textTitle, { fontWeight: "800", fontSize: 25 }]}>
         List of Scores
       </Text>
@@ -90,13 +90,6 @@ const ScoreboardScreen = () => {
 export default ScoreboardScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
   textTitle: {
     color: "black",
     fontSize: 16,
