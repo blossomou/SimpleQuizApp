@@ -43,29 +43,28 @@ const ScoreboardScreen = () => {
 
   return (
     <View style={AppStyles.container}>
-      <Text style={[styles.textTitle, { fontWeight: "800", fontSize: 25 }]}>
+      <Text style={[AppStyles.textTitle, { fontWeight: "800", fontSize: 25 }]}>
         List of Scores
       </Text>
       <View
         style={{
           height: height / 2,
           width: width / 2,
-          borderColor: "pink",
-          borderLeftWidth: 2,
-          borderRightWidth: 2,
+          borderColor: "black",
+          borderLeftWidth: 1,
+          borderRightWidth: 1,
           borderStyle: "solid",
-          alignItems: "center",
         }}
       >
         <ScrollView>
           {scores?.map((s, index) => {
             return (
               <View style={{ flexDirection: "row" }} key={index}>
-                <Text style={styles.textTitle}>{s.name}</Text>
-                <Text style={[styles.textTitle, { fontWeight: "bold" }]}>
+                <Text style={AppStyles.textTitle}>{s.name}</Text>
+                <Text style={[AppStyles.textTitle, { fontWeight: "bold" }]}>
                   {s.score}
                 </Text>
-                <Text style={styles.textTitle}>{s.createdDate}</Text>
+                <Text style={AppStyles.textTitle}>{s.createdDate}</Text>
               </View>
             );
           })}
@@ -89,11 +88,4 @@ const ScoreboardScreen = () => {
 
 export default ScoreboardScreen;
 
-const styles = StyleSheet.create({
-  textTitle: {
-    color: "black",
-    fontSize: 16,
-    padding: 10,
-    flexDirection: "row",
-  },
-});
+const styles = StyleSheet.create({});

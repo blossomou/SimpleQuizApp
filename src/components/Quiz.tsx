@@ -5,7 +5,6 @@ import RenderHtml from 'react-native-render-html';
 import AppStyles from '../../AppStyles';
 import { shuffle } from '../../utils/random';
 
-// const dbURL = `"https://opentdb.com/api.php?amount=10&category=18&type=multiple&difficulty=${props.difficulty}"`;
 interface QuestionProps {
   category: string;
   type: string;
@@ -22,7 +21,6 @@ const Quiz = (props: {
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
-  // const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [randAnswers, setRandAnswers] = useState<string[]>([]);
 
@@ -95,7 +93,7 @@ const Quiz = (props: {
   };
 
   return (
-    <View>
+    <View style={{ width: width - 20 }}>
       {questions != null ? (
         <View>
           <RenderHtml
@@ -141,19 +139,6 @@ const Quiz = (props: {
 export default Quiz;
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
-  textTitle: {
-    color: "black",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-
   feedback: {
     padding: 10,
     fontSize: 16,

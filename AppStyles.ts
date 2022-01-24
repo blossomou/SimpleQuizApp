@@ -28,7 +28,6 @@ export default StyleSheet.create({
   textTitle: {
     color: "black",
     fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: 10,
   },
 });

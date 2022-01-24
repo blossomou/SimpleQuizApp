@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
 import AppStyles from '../AppStyles';
 import { getDataFromStorage } from '../utils/random';
@@ -9,6 +9,7 @@ import { getDataFromStorage } from '../utils/random';
 const ResultScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const { width } = useWindowDimensions();
   const [name, setName] = useState<string>("");
   const [displayError, setDisplayError] = useState<string | null>(null);
   const score = (route.params as { score: number }).score;
@@ -46,7 +47,7 @@ const ResultScreen = () => {
       <Text style={AppStyles.textTitle}>Your Score: {score}</Text>
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { width: width / 2 }]}
         onChangeText={setName}
         placeholder="Please enter your name"
         value={name}

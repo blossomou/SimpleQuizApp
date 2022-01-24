@@ -25,12 +25,15 @@ const HomeScreen = () => {
             <Text
               style={[
                 AppStyles.textTitle,
-                { fontWeight: "bold", marginRight: 5 },
+                { fontWeight: "bold" },
+                { paddingLeft: 0 },
               ]}
             >
               Score:
             </Text>
-            <Text style={AppStyles.textTitle}>{score}</Text>
+            <Text style={[AppStyles.textTitle, { paddingLeft: 0 }]}>
+              {score}
+            </Text>
           </View>
           <Quiz
             difficulty={selectedValue}
