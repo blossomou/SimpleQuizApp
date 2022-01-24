@@ -62,7 +62,9 @@ const ScoreboardScreen = () => {
             return (
               <View style={{ flexDirection: "row" }} key={index}>
                 <Text style={styles.textTitle}>{s.name}</Text>
-                <Text style={styles.textTitle}>{s.score}</Text>
+                <Text style={[styles.textTitle, { fontWeight: "bold" }]}>
+                  {s.score}
+                </Text>
                 <Text style={styles.textTitle}>{s.createdDate}</Text>
               </View>
             );
@@ -94,31 +96,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  // button: {
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   paddingVertical: 12,
-  //   paddingHorizontal: 32,
-  //   borderRadius: 4,
-  //   elevation: 3,
-  //   backgroundColor: "black",
-  //   marginTop: 10,
-  //   marginRight: 10,
-  // },
-  // text: {
-  //   fontSize: 16,
-  //   lineHeight: 21,
-  //   fontWeight: "bold",
-  //   letterSpacing: 0.25,
-  //   color: "white",
-  // },
+
   textTitle: {
     color: "black",
     fontSize: 16,
     padding: 10,
     flexDirection: "row",
-    // marginRight: 10,
-    // borderRightColor: "black",
-    // borderRightWidth: 1,
   },
 });

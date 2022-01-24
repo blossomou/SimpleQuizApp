@@ -38,14 +38,12 @@ const ResultScreen = () => {
   };
 
   const formatDate = (date: Date) => {
-    return `${date.getMonth() + 1}/${date.getDay()}/${date.getFullYear()}`;
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>Your Score: </Text>
-
-      <Text style={styles.textTitle}>{score}</Text>
+      <Text style={AppStyles.textTitle}>Your Score: {score}</Text>
 
       <TextInput
         style={styles.input}
@@ -78,12 +76,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
   },
-  textTitle: {
-    color: "black",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
+
   input: {
     height: 40,
     margin: 12,

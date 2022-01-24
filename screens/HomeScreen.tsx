@@ -9,6 +9,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const [isShowQuiz, setIsShowQuiz] = useState(false);
+
   const [score, setScore] = useState(0);
   const [selectedValue, setSelectedValue] = useState("easy");
 
@@ -20,7 +21,17 @@ const HomeScreen = () => {
     <View style={styles.container}>
       {isShowQuiz ? (
         <View>
-          <Text style={styles.textTitle}>Score: {score}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              style={[
+                AppStyles.textTitle,
+                { fontWeight: "bold", marginRight: 5 },
+              ]}
+            >
+              Score:
+            </Text>
+            <Text style={AppStyles.textTitle}>{score}</Text>
+          </View>
           <Quiz
             difficulty={selectedValue}
             onFeedback={(isCorrect: boolean) => {
@@ -57,28 +68,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
-  },
-  // text: {
-  //   fontSize: 16,
-  //   lineHeight: 21,
-  //   fontWeight: "bold",
-  //   letterSpacing: 0.25,
-  //   color: "white",
-  // },
-  // button: {
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   paddingVertical: 12,
-  //   paddingHorizontal: 32,
-  //   borderRadius: 4,
-  //   elevation: 3,
-  //   backgroundColor: "black",
-  //   marginTop: 10,
-  // },
-  textTitle: {
-    color: "black",
-    fontSize: 16,
-    paddingTop: 10,
-    paddingBottom: 10,
   },
 });

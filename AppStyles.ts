@@ -1,6 +1,6 @@
-"use strict";
 import { StyleSheet } from 'react-native';
 
+"use strict";
 export default StyleSheet.create({
   text: {
     fontSize: 16,
@@ -18,5 +18,11 @@ export default StyleSheet.create({
     elevation: 3,
     backgroundColor: "black",
     marginTop: 10,
+  },
+  textTitle: {
+    color: "black",
+    fontSize: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 });
