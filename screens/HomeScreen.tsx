@@ -4,54 +4,48 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import AppStyles from '../AppStyles';
 import Quiz from '../src/components/Quiz';
+import { QuestionProps } from '../src/models/QuestionProps';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-
-  const [isShowQuiz, setIsShowQuiz] = useState(false);
-  const [isQuizLoading, setIsQuizLoading] = useState(true);
-
+  const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
   const [score, setScore] = useState(0);
 
-  const startQuiz = () => {
-    setIsShowQuiz(true);
+  const getDataAsync = async () => {
+    try {
+      const response = await fetch(
+        "https://opentdb.com/api.php?amount=5&category=18&type=multiple"
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.results.length > 0) {
+          setQuestions(data.results);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <View style={AppStyles.container}>
-      {isShowQuiz ? (
+      {questions ? (
         <View>
-          {isQuizLoading ? (
-            <></>
-          ) : (
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={[
-                  AppStyles.textTitle,
-                  { fontWeight: "bold" },
-                  { paddingLeft: 0 },
-                ]}
-              >
-                Score:
-              </Text>
-              <Text style={[AppStyles.textTitle, { paddingLeft: 0 }]}>
-                {score}
-              </Text>
-            </View>
-          )}
+          <Text style={[AppStyles.textTitle, { paddingLeft: 0 }]}>
+            Score: {score}
+          </Text>
 
           <Quiz
-            onLoaded={() => {
-              setIsQuizLoading(false);
-            }}
+            questions={questions}
             onFeedback={(isCorrect: boolean) => {
               if (isCorrect) {
                 setScore(score + 10);
               }
             }}
             onQuizComplete={() => {
-              setIsQuizLoading(true);
-              setIsShowQuiz(false);
+              setQuestions(null);
               setScore(0);
               navigation.navigate("Result", {
                 score,
@@ -61,7 +55,7 @@ const HomeScreen = () => {
         </View>
       ) : (
         <View>
-          <Pressable style={AppStyles.button} onPress={startQuiz}>
+          <Pressable style={AppStyles.button} onPress={getDataAsync}>
             <Text style={AppStyles.text}>Start Quiz</Text>
           </Pressable>
         </View>

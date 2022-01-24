@@ -4,38 +4,25 @@ import RenderHtml from 'react-native-render-html';
 
 import AppStyles from '../../AppStyles';
 import { shuffle } from '../../utils/random';
-
-interface QuestionProps {
-  category: string;
-  type: string;
-  difficulty: string;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-}
+import { QuestionProps } from '../models/QuestionProps';
 
 const Quiz = (props: {
-  onLoaded: () => void;
+  questions: QuestionProps[];
   onQuizComplete: () => void;
   onFeedback: (isCorrect: boolean) => void;
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [questions, setQuestions] = useState<QuestionProps[] | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [randAnswers, setRandAnswers] = useState<string[]>([]);
 
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    getDataAsync();
-  }, []);
-
-  useEffect(() => {
     if (feedback != null) {
       setTimeout(() => {
         setFeedback(null);
 
-        if (currentQuestionIndex + 1 == questions?.length) {
+        if (currentQuestionIndex + 1 == props.questions?.length) {
           props.onQuizComplete();
         } else {
           setCurrentQuestionIndex((index) => index + 1);
@@ -45,33 +32,14 @@ const Quiz = (props: {
   }, [feedback]);
 
   useEffect(() => {
-    if (questions != null) {
+    if (props.questions != null) {
       let answers = [
-        ...questions[currentQuestionIndex].incorrect_answers,
-        questions[currentQuestionIndex].correct_answer,
+        ...props.questions[currentQuestionIndex].incorrect_answers,
+        props.questions[currentQuestionIndex].correct_answer,
       ];
       setRandAnswers(shuffle(answers));
     }
-  }, [currentQuestionIndex, questions]);
-
-  const getDataAsync = async () => {
-    try {
-      const response = await fetch(
-        "https://opentdb.com/api.php?amount=5&category=18&type=multiple"
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-
-        if (data.results.length > 0) {
-          setQuestions(data.results);
-          props.onLoaded();
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  }, [currentQuestionIndex, props.questions]);
 
   const clickAnswer = (selectedAnswer: string, correctAnswer: string) => {
     if (selectedAnswer === correctAnswer) {
@@ -93,13 +61,13 @@ const Quiz = (props: {
 
   return (
     <View style={{ width: width - 20 }}>
-      {questions != null ? (
+      {props.questions != null ? (
         <View>
           <RenderHtml
             contentWidth={width}
             source={createMarkup(
               `${currentQuestionIndex + 1}. ${
-                questions[currentQuestionIndex].question
+                props.questions[currentQuestionIndex].question
               }`,
               "font-size: 16px; font-weight: bold; color: black"
             )}
@@ -113,7 +81,7 @@ const Quiz = (props: {
                 onPress={() => {
                   clickAnswer(
                     answer,
-                    questions[currentQuestionIndex].correct_answer
+                    props.questions[currentQuestionIndex].correct_answer
                   );
                 }}
               >
