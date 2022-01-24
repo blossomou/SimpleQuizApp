@@ -54,6 +54,7 @@ const ScoreboardScreen = () => {
           borderLeftWidth: 1,
           borderRightWidth: 1,
           borderStyle: "solid",
+          alignItems: "center",
         }}
       >
         <ScrollView>
